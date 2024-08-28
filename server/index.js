@@ -1,28 +1,36 @@
+require("dotenv").config();
 const TelegramBot = require("node-telegram-bot-api");
 const express = require("express");
 const cors = require("cors");
+const router = require("./routers/index");
 
-const token = "7157811564:AAHuZARC0NUx5vhdcacoFuUkQ6bXUFyQ7ec"; // tg bot token
-const webAppUrl = "https://10b0-37-115-89-248.ngrok-free.app"; // ngrok server link
+const token = process.env.BOT_TOKEN; // tg bot token
+const webAppUrl = process.env.WEB_APP_URL; // ngrok server link
+const PORT = process.env.PORT; // server port
 
 const bot = new TelegramBot(token, { polling: true });
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use("/api", router);
 
 app.use((req, res, next) => {
   res.setHeader("ngrok-skip-browser-warning", "true");
   next();
-});
+}); // пропускаємо застереження браузеру із за Ngrok
 
-const PORT = 5000;
+bot.setMyCommands([{ command: "/start", description: "Почати гру" }]); // команда start
 
-bot.setMyCommands([{ command: "/play", description: "Начать игру" }]);
-
-bot.onText(/\/play/, (msg) => {
+bot.on("message", (msg) => {
   const chatId = msg.chat.id;
-  bot.sendMessage(chatId, { web_app: { url: webAppUrl + "/form" } });
-});
+  if (msg.text === "/start") {
+    bot.sendMessage(chatId, "Ласкаво прошу до моєї гри!", {
+      reply_markup: {
+        inline_keyboard: [[{ text: "Грати", web_app: { url: webAppUrl } }]],
+      },
+    });
+  }
+}); // відповідь на команду start
 
-app.listen(PORT, () => console.log("server started on PORT " + PORT));
+app.listen(PORT, () => console.log("server started on PORT " + PORT)); // запуск сервера
