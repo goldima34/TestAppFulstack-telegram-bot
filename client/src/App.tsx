@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./index.css";
-import { guess, startGame } from "./api/GameApi";
 import NumberInput from "./components/NumberInput";
 
 function App() {

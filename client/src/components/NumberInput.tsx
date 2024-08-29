@@ -13,7 +13,7 @@ const NumberInput = () => {
       setTargetNumber(targetNumber);
       setMessage(message);
     });
-  }, []); // Run only once on mount
+  }, []);
 
   const sendClick = async () => {
     const num = Number(userNumber);
@@ -50,7 +50,6 @@ const NumberInput = () => {
         type="text"
         placeholder="Введіть число"
         value={userNumber || ""}
-        // Add input validation if necessary
       />
       {!gameEnd && (
         <button className="send-btn" onClick={sendClick}>

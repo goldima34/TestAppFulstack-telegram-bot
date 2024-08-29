@@ -5,7 +5,7 @@ const cors = require("cors");
 const router = require("./routers/index");
 
 const token = process.env.BOT_TOKEN; // tg bot token
-const webAppUrl = process.env.WEB_APP_URL; // ngrok server link
+const webAppUrl = process.env.WEB_APP_URL; // client link
 const PORT = process.env.PORT; // server port
 
 const bot = new TelegramBot(token, { polling: true });
