@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./index.css";
+import { guess, startGame } from "./api/GameApi";
+import NumberInput from "./components/NumberInput";
 
 function App() {
   return (
     <div className="App">
-      <input className="number-input" type="text" />
+      <h1 className="logo">Вгадай число!</h1>
+      <NumberInput />
     </div>
   );
 }

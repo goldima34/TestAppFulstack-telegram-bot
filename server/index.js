@@ -10,15 +10,9 @@ const PORT = process.env.PORT; // server port
 
 const bot = new TelegramBot(token, { polling: true });
 const app = express();
-
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 app.use("/api", router);
-
-app.use((req, res, next) => {
-  res.setHeader("ngrok-skip-browser-warning", "true");
-  next();
-}); // пропускаємо застереження браузеру із за Ngrok
 
 bot.setMyCommands([{ command: "/start", description: "Почати гру" }]); // команда start
 
