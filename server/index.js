@@ -12,7 +12,7 @@ const bot = new TelegramBot(token, { polling: true });
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use("/api", router);
+app.use("/", router);
 
 bot.setMyCommands([{ command: "/start", description: "Почати гру" }]); // команда start
 
